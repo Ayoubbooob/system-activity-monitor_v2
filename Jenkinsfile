@@ -21,7 +21,7 @@ pipeline {
             steps {
                 echo 'BUILD EXECUTION STARTED'
                 sh 'go version'
-                sh 'make run'
+                sh 'make build'
             }
         }
     }

@@ -1,5 +1,6 @@
-run:
-	go run ./main.go
+build:
+	'go build .'
+
 
 unit-tests:
 	go test ./app/...
