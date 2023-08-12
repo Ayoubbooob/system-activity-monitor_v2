@@ -20,7 +20,7 @@ pipeline {
             steps {
                 echo 'BUILD EXECUTION STARTED'
                 sh 'go version'
-                sh 'go get app/...'
+                sh 'go get ./app/...'
             }
         }
     }
