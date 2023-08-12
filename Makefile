@@ -1,5 +1,5 @@
 run:
-	go run app/main.go
+	sudo go run app/main.go
 
 unit-tests:
-	go test ./app/...
+	go test app/cpu/cpu_metrics_test.go
