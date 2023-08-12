@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Ayoubbooob/system-activity-monitor/cpu"
 	//"github.com/Ayoubbooob/system-activity-monitor/disk"
 
+	"github.com/Ayoubbooob/system-activity-monitor/app/cpu"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
