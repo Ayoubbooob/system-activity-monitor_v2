@@ -11,7 +11,7 @@ pipeline {
     }
     stages {
 
-        stage("pre-test") {
+        stage("Pre test") {
             sh 'go mod downoad ./app/go.mod'
         }
         stage("unit-test") {
