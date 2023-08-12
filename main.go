@@ -6,7 +6,7 @@ import (
 
 	//"github.com/Ayoubbooob/system-activity-monitor/disk"
 
-	"github.com/Ayoubbooob/system-activity-monitor/app/cpu"
+	"github.com/Ayoubbooob/system-activity-monitor_v2/app/cpu"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
