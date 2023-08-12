@@ -5,7 +5,7 @@ pipeline {
         go 'go1.20'
     }
     environment {
-        GO114MODULE = 'on'
+        GO120MODULE = 'on'
         CGO_ENABLED = 0 
         GOPATH = "${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}"
     }
@@ -20,8 +20,7 @@ pipeline {
             steps {
                 echo 'BUILD EXECUTION STARTED'
                 sh 'go version'
-                sh 'go get ./...'
-                sh 'docker build . -t shadowshotx/product-go-micro'
+                sh 'go get app/...'
             }
         }
     }
