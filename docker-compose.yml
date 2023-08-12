@@ -1,0 +1,41 @@
+I will not dockerize the app, because when I do metrics collected is of the container not my machine
+
+# version: '3'
+# services:
+#   # Service for the Golang app
+#   system-activity-monitor:
+#     container_name: system-activity-monitor-app
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     ports:
+#       - "9091:9091"  # Expose the app's metrics port
+#     networks:
+#       - missing-semester-network
+#   # Service for Prometheus
+#   prometheus:
+#     container_name: prometheus
+#     image: prom/prometheus # Use the Prometheus official image
+#     volumes:
+#       - ./etc/prometheus:/etc/prometheus  # Mount the Prometheus configuration
+#     command:
+#       - "--config.file=/etc/prometheus/prometheus.yml"  # Specify the config file path
+#     ports:
+#       - "9090:9090"  # Expose Prometheus web UI port
+#     depends_on:
+#       - system-activity-monitor  # Depend on the Golang app service
+#     networks:
+#       - missing-semester-network
+#   # Service for Grafana
+#   grafana:
+#     container_name: grafana
+#     image: grafana/grafana  # Use the Grafana official image
+#     ports:
+#       - "3000:3000"  # Expose Grafana web UI port
+#     depends_on:
+#       - prometheus  # Depend on the Prometheus service
+#     networks:
+#       - missing-semester-network
+# networks:
+#   missing-semester-network:
+#     driver: bridge
