@@ -11,9 +11,7 @@ pipeline {
     }
     stages {
 
-        stage("Pre test") {
-            sh 'go mod downoad ./app/go.mod'
-        }
+        
         stage("unit-test") {
             steps {
                 echo 'UNIT TEST EXECUTION STARTED'
@@ -24,6 +22,7 @@ pipeline {
             steps {
                 echo 'BUILD EXECUTION STARTED'
                 sh 'go version'
+                sh 'go get app/go.mod'
                 sh 'make run'
             }
         }
