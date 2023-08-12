@@ -1,4 +1,6 @@
-module  github.com/Ayoubbooob/system-activity-monitor
+module  github.com/Ayoubbooob/system-activity-monitor_v2
+
+
 
 go 1.20
 
