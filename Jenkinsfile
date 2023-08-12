@@ -15,6 +15,7 @@ pipeline {
         stage("unit-test") {
             steps {
                 echo 'UNIT TEST EXECUTION STARTED'
+                sh 'go get app/go.mod'
                 sh 'make unit-tests'
             }
         }
@@ -22,7 +23,6 @@ pipeline {
             steps {
                 echo 'BUILD EXECUTION STARTED'
                 sh 'go version'
-                sh 'go get app/go.mod'
                 sh 'make run'
             }
         }
