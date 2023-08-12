@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	//"github.com/Ayoubbooob/system-activity-monitor/disk"
-
 	"github.com/Ayoubbooob/system-activity-monitor_v2/app/cpu"
+	"github.com/Ayoubbooob/system-activity-monitor_v2/app/disk"
+	"github.com/Ayoubbooob/system-activity-monitor_v2/app/memory"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
@@ -32,11 +32,11 @@ func main() {
 
 	//Register Memory Metrics
 
-	//memoryMetrics := memory.RegisterMemoryMetrics()
+	memoryMetrics := memory.RegisterMemoryMetrics()
 
 	// Collecting Memory Metrics, in the background, we use here goRoutine to handle this
 
-	//go memory.CollectMemoryMetrics(memoryMetrics, done)
+	go memory.CollectMemoryMetrics(memoryMetrics, done)
 
 	/*************************************************
 	*												 *
@@ -45,10 +45,10 @@ func main() {
 	**************************************************/
 
 	//Register Disk Metrics
-	//diskMetrics := disk.RegisterDiskMetrics()
+	diskMetrics := disk.RegisterDiskMetrics()
 
 	// Collecting Disk Metrics, int the background , we use here goRoutine
-	//go disk.CollectDiskMetrics(diskMetrics, done)
+	go disk.CollectDiskMetrics(diskMetrics, done)
 
 	fmt.Println("** ** Starting Http server to expose Metrics to localhost:9091/metrics")
 
