@@ -11,40 +11,43 @@ import (
 )
 
 func main() {
-
 	done := make(chan struct{})
 
-	/*************************************************
-	*												 	*
-	*					 - CPU Metrics -            	*
+	fmt.Println(`
+████████╗██╗  ██╗██╗███████╗    ██████╗ ██╗████████╗███████╗
+╚══██╔══╝██║  ██║██║██╔════╝    ██╔══██╗██║╚══██╔══╝██╔════╝
+    ██║   ███████║██║███████╗    ██████╔╝██║   ██║   ███████╗
+    ██║   ██╔══██║██║╚════██║    ██╔══██╗██║   ██║   ╚════██║
+    ██║   ██║  ██║██║███████║    ██████╔╝██║   ██║   ███████║
+    ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝    ╚═════╝ ╚═╝   ╚═╝   ╚══════╝
 
-	**************************************************/
+     ██████╗ █████╗ ███╗   ███╗███████╗    ██████╗ ██████╗ ██████╗
+    ██╔════╝██╔══██╗████╗ ████║██╔════╝    ██╔══██╗██╔══██╗██╔══██╗
+    ██║     ███████║██╔████╔██║█████╗      ██████╔╝██████╔╝██║  ██║
+    ██║     ██╔══██║██║╚██╔╝██║██╔══╝      ██╔═══╝ ██╔══██╗██║  ██║
+    ╚██████╗██║  ██║██║ ╚═╝ ██║███████╗    ██║     ██║  ██║██████╔╝
+     ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝    ╚═╝     ╚═╝  ╚═╝╚═════╝
 
-	cpuMetrics := cpu.RegisterCpuMetrics()     //Register CPU Metrics
-	go cpu.CollectCpuMetrics(cpuMetrics, done) // Collecting CPU Metrics, in the background, we use here goRoutine to handle this
+** ** Initiating System Monitoring and Analytics ** **
 
-	/*************************************************
-	*												 	*
-	*					 - Memory Metrics  -            *
+            -> To access metrics in Prometheus, visit: (http://localhost:9091/metrics)
+            -> For visualizing metrics using Grafana, explore: (http://localhost:3000)
 
-	**************************************************/
+            * Note: Ensure Prometheus and Grafana servers are configured to unlock the full potential.
+`)
 
-	memoryMetrics := memory.RegisterMemoryMetrics()     //Register Memory Metrics
-	go memory.CollectMemoryMetrics(memoryMetrics, done) // Collecting Memory Metrics, in the background, we use here goRoutine to handle this
+	cpuMetrics := cpu.RegisterCpuMetrics()
+	go cpu.CollectCpuMetrics(cpuMetrics, done)
 
-	/*************************************************
-	*												 	*
-	*					 - Disk Metrics -            	*
+	memoryMetrics := memory.RegisterMemoryMetrics()
+	go memory.CollectMemoryMetrics(memoryMetrics, done)
 
-	**************************************************/
+	diskMetrics := disk.RegisterDiskMetrics()
+	go disk.CollectDiskMetrics(diskMetrics, done)
 
-	diskMetrics := disk.RegisterDiskMetrics()     //Register Disk Metrics
-	go disk.CollectDiskMetrics(diskMetrics, done) // Collecting Disk Metrics, int the background , we use here goRoutine
-
-	fmt.Println("** ** Starting Http server to expose Metrics to localhost:9091/metrics")
 	go ExposeMetrics()
-	<-done
 
+	<-done
 }
 
 // Exposing metrics to prometheus Data source in the url localhost:9091/metrics'
