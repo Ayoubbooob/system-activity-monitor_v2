@@ -1,3 +1,6 @@
+# dockerized the app to test & for curiosity purpose, reveal that the app in this case collect container metrics not of host machine 
+
+
 # Use an official Golang runtime as the base image
 FROM  golang:latest as builder
 # FROM  golang:1.21rc4-alpine3.18 as builder

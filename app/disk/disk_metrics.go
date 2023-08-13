@@ -12,7 +12,7 @@ import (
 
 type DISKMetrics struct {
 	// 	diskTotal       *prometheus.CounterVec
-	// 	diskUsed        *prometheus.GaugeVec
+	// 	diskUsed        *prometheus.GaugeVec	//TODO - adding more interesting metrics
 	// 	diskFree        *prometheus.GaugeVec
 	devices         *prometheus.GaugeVec
 	partitions      *prometheus.GaugeVec
@@ -23,20 +23,6 @@ type DISKMetrics struct {
 func RegisterDiskMetrics() *DISKMetrics {
 	diskMetrics := &DISKMetrics{
 
-		// diskTotal: prometheus.NewCounterVec(prometheus.CounterOpts{
-		// 	Name: "node_disk_total",
-		// 	Help: " -- This metric gives the total disk space.",
-		// }, []string{"deviceName"}),
-
-		// diskUsed: prometheus.NewGaugeVec(prometheus.GaugeOpts{
-		// 	Name: "node_disk_usage_gegabytes",
-		// 	Help: " -- This metric represents the total disk usage",
-		// }, []string{"deviceName"}),
-
-		// diskFree: prometheus.NewGaugeVec(prometheus.GaugeOpts{
-		// 	Name: "node_disk_free_gegabytes",
-		// 	Help: " -- This metric represents the amount of free disk available",
-		// }, []string{"deviceName"}),
 		devices: prometheus.NewGaugeVec(prometheus.GaugeOpts{
 			Name: "node_disk_device_devices",
 			Help: " -- This metric gives informations about available disk devices",
@@ -50,17 +36,13 @@ func RegisterDiskMetrics() *DISKMetrics {
 		readRatePerApp: prometheus.NewGaugeVec(prometheus.GaugeOpts{
 			Name: "node_disk_read_bytes_rate_per_app",
 			Help: " -- This metric gives { ** READ RATE ** }of bytes from disk per application",
-		}, []string{"device", "pid", "process_name", "read_rate"}),
+		}, []string{"pid", "process_name", "read_rate"}),
 
 		writeRatePerApp: prometheus.NewGaugeVec(prometheus.GaugeOpts{
 			Name: "node_disk_write_bytes_rate_per_app",
 			Help: " -- This metric gives { ** WRITE RATE ** } of bytes from disk per application",
-		}, []string{"device", "pid", "process_name", "write_rate"}),
+		}, []string{"pid", "process_name", "write_rate"}),
 	}
-
-	// prometheus.MustRegister(diskMetrics.diskTotal)
-	// prometheus.MustRegister(diskMetrics.diskUsed)
-	// prometheus.MustRegister(diskMetrics.diskFree)
 	prometheus.MustRegister(diskMetrics.devices)
 	prometheus.MustRegister(diskMetrics.partitions)
 	prometheus.MustRegister(diskMetrics.readRatePerApp)
@@ -73,29 +55,6 @@ func CollectDiskMetrics(diskMetrics *DISKMetrics, done <-chan struct{}) {
 
 	for {
 
-		// diskStorageInfo, err := disk.Partitions(false)
-		// if err != nil {
-		// 	fmt.Println("Error while trying to get disks storage info:", err)
-		// } else {
-		// 	for _, device := range diskStorageInfo {
-		// 		deviceName := device.Device
-		// 		usage, err := disk.Usage(device.Mountpoint)
-		// 		if err != nil {
-		// 			fmt.Println("Error while trying to get disk usage:", err)
-		// 		} else {
-
-		// 			totalGB := float64(usage.Total) / (1024 * 1024 * 1024)
-		// 			usedGB := float64(usage.Used) / (1024 * 1024 * 1024)
-		// 			freeGB := float64(usage.Free) / (1024 * 1024 * 1024)
-
-		// 			diskMetrics.diskTotal.WithLabelValues(deviceName).Add(totalGB)
-		// 			diskMetrics.diskUsed.WithLabelValues(deviceName).Set(usedGB)
-		// 			diskMetrics.diskFree.WithLabelValues(deviceName).Set(freeGB)
-
-		// 		}
-		// 	}
-		// }
-
 		devices, err := disk.IOCounters()
 
 		if err != nil {
@@ -105,7 +64,7 @@ func CollectDiskMetrics(diskMetrics *DISKMetrics, done <-chan struct{}) {
 			for device := range devices {
 				i = i + 1
 				deviceName := device
-				diskMetrics.devices.WithLabelValues(deviceName).Set(i) //this will give {....} device size -- I need to set the real size of device
+				diskMetrics.devices.WithLabelValues(deviceName).Set(i)
 			}
 
 		}
@@ -120,34 +79,31 @@ func CollectDiskMetrics(diskMetrics *DISKMetrics, done <-chan struct{}) {
 				deviceName := partition.Device
 				mountpoint := partition.Mountpoint
 				fstype := partition.Fstype
-				// size, _ := disk.Usage(mountpoint)
-				// sizeInGB := float64(size.Total) / (1024 * 1024 * 1024)
 				i = i + 1
 				diskMetrics.partitions.WithLabelValues(deviceName, mountpoint, fstype).Set(i)
 			}
 		}
 
-		diskStats, err := disk.IOCounters()
+		//diskStats, err := disk.IOCounters()
 		processes, _ := process.Processes()
 
 		if err != nil {
 			fmt.Println("Error While trying to get disk write & read rates:", err)
 		} else {
-			for device := range diskStats {
-				deviceName := device
-				for _, process := range processes {
-					pid := process.Pid
-					processName, _ := process.Name()
-					pIO, err := process.IOCounters()
-					if err != nil {
-						fmt.Println("Error while trying to get IO counters for the process:", processName, pid, err)
-					} else {
-						readRate := float64(pIO.ReadBytes) / (1024 * 1024) // in MB
-						writeRate := float64(pIO.WriteCount) / (1024 * 1024)
-						diskMetrics.readRatePerApp.WithLabelValues(deviceName, fmt.Sprintf("%d", pid), processName, strconv.FormatFloat(readRate, 'f', 1, 64)).Set(readRate)
-						diskMetrics.writeRatePerApp.WithLabelValues(deviceName, fmt.Sprintf("%d", pid), processName, strconv.FormatFloat(writeRate, 'f', 1, 64)).Set(writeRate)
-					}
+
+			//deviceName := device
+			for _, myProcess := range processes {
+				pid := myProcess.Pid
+				processName, _ := myProcess.Name()
+				pIO, err := myProcess.IOCounters()
+
+				if err == nil {
+					readRate := float64(pIO.ReadBytes) / (1024 * 1024) // in MB
+					writeRate := float64(pIO.WriteCount) / (1024 * 1024)
+					diskMetrics.readRatePerApp.WithLabelValues(fmt.Sprintf("%d", pid), processName, strconv.FormatFloat(readRate, 'f', 1, 64)).Set(readRate)
+					diskMetrics.writeRatePerApp.WithLabelValues(fmt.Sprintf("%d", pid), processName, strconv.FormatFloat(writeRate, 'f', 1, 64)).Set(writeRate)
 				}
+
 			}
 		}
 

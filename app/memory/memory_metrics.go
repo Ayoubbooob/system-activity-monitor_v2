@@ -3,11 +3,9 @@ package memory
 import (
 	"fmt"
 	"math"
-	"net/http"
 	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/shirou/gopsutil/mem"
 	"github.com/shirou/gopsutil/process"
 )
@@ -31,7 +29,7 @@ func RegisterMemoryMetrics() *MEMORYMetrics {
 		}),
 
 		memoryUsagePerApp: prometheus.NewGaugeVec(prometheus.GaugeOpts{
-			Name: "process_memory_usage_gegabytes",
+			Name: "process_memory_usage_megabytes",
 			Help: " -- This metric memory usage per app/process",
 		}, []string{"pid", "process_name"}),
 	}
@@ -79,13 +77,9 @@ func CollectMemoryMetrics(metrics *MEMORYMetrics, done <-chan struct{}) {
 }
 
 func formatMemoryToGega(memoryValue uint64) float64 {
-	return math.Round(float64(memoryValue)/1024*1024*1024*100) / 100
+	return math.Round(float64(memoryValue)/1024/1024/1024*100) / 100
 }
 
 func formatMemoryToMega(memoryValue uint64) float64 {
-	return math.Round(float64(memoryValue)/1024*1024*100) / 100
-}
-func ExposeMemoryMetrics() {
-	http.Handle("/metrics/memory", promhttp.Handler())
-	http.ListenAndServe(":9092", nil)
+	return math.Round(float64(memoryValue)/1024/1024*100) / 100
 }

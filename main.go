@@ -14,49 +14,40 @@ func main() {
 
 	done := make(chan struct{})
 
-	/*********************** -  CPU Metrics - **************************/
-
-	//Register CPU Metrics
-
-	cpuMetrics := cpu.RegisterCpuMetrics()
-
-	// Collecting CPU Metrics, in the background, we use here goRoutine to handle this
-
-	go cpu.CollectCpuMetrics(cpuMetrics, done)
-
-	//fmt.Println("** ** Starting Http server to expose cpu metrics ...")
-
-	//go cpu.ExposeCpuMetrics() // Expose cpu Metrics via http - You can access the results on this endpoints : localhost:9091/metrics/cpu
-
-	/*********************** -  Memory Metrics - **************************/
-
-	//Register Memory Metrics
-
-	memoryMetrics := memory.RegisterMemoryMetrics()
-
-	// Collecting Memory Metrics, in the background, we use here goRoutine to handle this
-
-	go memory.CollectMemoryMetrics(memoryMetrics, done)
-
 	/*************************************************
-	*												 *
-	*					 - Disk Metrics -            *
+	*												 	*
+	*					 - CPU Metrics -            	*
 
 	**************************************************/
 
-	//Register Disk Metrics
-	diskMetrics := disk.RegisterDiskMetrics()
+	cpuMetrics := cpu.RegisterCpuMetrics()     //Register CPU Metrics
+	go cpu.CollectCpuMetrics(cpuMetrics, done) // Collecting CPU Metrics, in the background, we use here goRoutine to handle this
 
-	// Collecting Disk Metrics, int the background , we use here goRoutine
-	go disk.CollectDiskMetrics(diskMetrics, done)
+	/*************************************************
+	*												 	*
+	*					 - Memory Metrics  -            *
+
+	**************************************************/
+
+	memoryMetrics := memory.RegisterMemoryMetrics()     //Register Memory Metrics
+	go memory.CollectMemoryMetrics(memoryMetrics, done) // Collecting Memory Metrics, in the background, we use here goRoutine to handle this
+
+	/*************************************************
+	*												 	*
+	*					 - Disk Metrics -            	*
+
+	**************************************************/
+
+	diskMetrics := disk.RegisterDiskMetrics()     //Register Disk Metrics
+	go disk.CollectDiskMetrics(diskMetrics, done) // Collecting Disk Metrics, int the background , we use here goRoutine
 
 	fmt.Println("** ** Starting Http server to expose Metrics to localhost:9091/metrics")
-
 	go ExposeMetrics()
 	<-done
 
 }
 
+// Exposing metrics to prometheus Data source in the url localhost:9091/metrics'
 func ExposeMetrics() {
 	http.Handle("/metrics", promhttp.Handler())
 	http.ListenAndServe(":9091", nil)

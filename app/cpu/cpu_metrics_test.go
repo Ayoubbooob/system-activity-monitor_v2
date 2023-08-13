@@ -21,37 +21,3 @@ func TestRegisterCpuMetrics(t *testing.T) {
 		t.Fatalf("failed to gather metrics: %v", err)
 	}
 }
-
-// type mockCPUMetrics struct {
-// 	cpuUsage float64
-// 	cpuFree  float64
-// }
-
-// func (m *mockCPUMetrics) CpuUsage() prometheus.Gauge {
-// 	return prometheus.NewGauge(prometheus.GaugeOpts{})
-// }
-
-// func (m *mockCPUMetrics) CpuFree() prometheus.Gauge {
-// 	return prometheus.NewGauge(prometheus.GaugeOpts{})
-// }
-
-// func TestCollectCpuMetrics(t *testing.T) {
-// 	estMetrics := &CPUMetrics{
-// 		CpuUsage: NewTestGauge(),
-// 		CpuFree:  NewTestGauge(),
-// 	}
-
-// 	done := make(chan struct{})
-// 	defer close(done)
-
-// 	go cpu.CollectCpuMetrics(testMetrics, done)
-
-// 	// Let the function run for a short time
-// 	time.Sleep(time.Second)
-
-// 	// Add your assertions here to check if metrics are being updated correctly
-// 	assert.NotNil(t, testMetrics.CpuUsage)
-// 	assert.NotNil(t, testMetrics.CpuFree)
-
-// 	done <- struct{}{} // Stop the goroutine
-// }

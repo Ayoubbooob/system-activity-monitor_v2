@@ -1,4 +1,4 @@
-I will not dockerize the app, because when I do metrics collected is of the container not my machine
+# dockerized the app to test & for curiosity purpose, reveal that the app in this case collect container metrics not of host machine 
 
 # version: '3'
 # services:
