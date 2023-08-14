@@ -1,6 +1,6 @@
 # SysMetrix Pulse Monitor
 
-SysMetrix Pulse Monitor is a simple system activity monitor that collects various statistics and displays them in real-time. This project focuses on monitoring CPU, memory, and disk usage, allowing users to gain insights into their system's performance. Whether you're a system administrator, developer, or curious user, SysMetrix Pulse Monitor provides a user-friendly interface to keep track of essential metrics.
+SysMetrix Pulse Monitor is a system activity monitor that collects various statistics and displays them in real-time. This project focuses on monitoring CPU, memory, and disk usage, allowing users to gain insights into their system's performance. Whether you're a system administrator, developer, or curious user, SysMetrix Pulse Monitor provides a user-friendly interface to keep track of essential metrics.
 
 ## Features
 
@@ -12,22 +12,20 @@ SysMetrix Pulse Monitor is a simple system activity monitor that collects variou
 
 - **Disk Metrics**: Keep an eye on disk devices and partitions, along with read and write rates.
 
-- **Search Functionality**: Filter and search metrics based on application or process names.
-
 ## Getting Started
 
 Follow these steps to build and run SysMetrix Pulse Monitor on your system:
 
-1. Install Go 1.20: [Installation Guide](https://go.dev/doc/install)
+1. Install Go 1.20: [Go Installation Guide](https://go.dev/doc/install)
 
-2. Install Prometheus: [Installation Guide](https://www.cherryservers.com/blog/install-prometheus-ubuntu)
+2. Install Prometheus: [Prometheus Installation Guide](https://www.cherryservers.com/blog/install-prometheus-ubuntu)
    - Start Prometheus:
      ```
      sudo systemctl enable prometheus
      sudo systemctl start prometheus
      ```
 
-3. Install Grafana: [Download Grafana](https://grafana.com/grafana/download)
+3. Install Grafana: [Grafana Installation Guide](https://grafana.com/grafana/download)
    - Start Grafana Server:
      ```
      sudo systemctl daemon-reload
@@ -59,7 +57,7 @@ Follow these steps to build and run SysMetrix Pulse Monitor on your system:
 - Real-time CPU Usage Overview
 ![Real-time CPU Usage Overview](screenshots/cpu_usage_overview.png)
 
-- CPU Usage Over Time, App & Process-specific CPU Utilization
+- CPU Usage Over Time + App & Process-specific CPU Utilization
 ![CPU Usage Over Time](screenshots/cpu_usage_over_time.png)
 
 
@@ -88,7 +86,7 @@ Follow these steps to build and run SysMetrix Pulse Monitor on your system:
 - Successful execution of the Jenkins pipeline
 ![Screenshot of Your Jenkins Pipeline](screenshots/jenkins_pipeline.png)
 
-### Demo GIF
+### Project GIF
 - A GIF showcasing the application in action
 ![Project GIF](screenshots/project_gif.gif)
 
@@ -98,34 +96,28 @@ Follow these steps to build and run SysMetrix Pulse Monitor on your system:
 - [x] Builds on Linux / Linux VM
 - [x] Used one of the allowed programming languages (Golang)
 - [x] Monitor CPU:
-- [x] Current total usage
-- [x] Current usage per application
-- [x] Current free
+  - [x] Current total usage
+  - [x] Current usage per application
+  - [x] Current free
 - [x] Monitor Memory:
-- [x] Current total usage
-- [x] Current total free
-- [x] Current usage per application
+  - [x] Current total usage
+  - [x] Current total free
+  - [x] Current usage per application
 - [x] Monitor Disk:
-- [x] Available devices
-- [x] Available partitions
-- [x] Read rate per application
-- [x] Write rate per application
+  - [x] Available devices
+  - [x] Available partitions
+  - [x] Read rate per application
+  - [x] Write rate per application
 - [x] Real-time stats collection
 - [x] UI:
-- [x] Prometheus + Grafana
+  - [ ]  Terminal-based UI
+  - [x] Prometheus + Grafana
 
-## Accepted Output Devices
 
-SysMetrix Pulse Monitor offers two ways to view collected statistics:
-
-### Prometheus + Grafana
-
-The monitor can send data to a Prometheus instance and visualize metrics through Grafana. To explore metrics, visit [http://localhost:3000](http://localhost:3000).
-
-Happy monitoring!
+📊 Happy Monitoring! 🚀
 
 ---
 
-This project was created as part of the [SysMetrix Hackathon](https://example.com).
+This project was created as part of the [Acceptance test for the Missing semester ](https://gist.github.com/chermehdi/ae3f10775526d44a9821d8e889df798c).
 
 
