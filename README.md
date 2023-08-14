@@ -24,6 +24,8 @@ Follow these steps to build and run SysMetrix Pulse Monitor on your system:
      sudo systemctl enable prometheus
      sudo systemctl start prometheus
      ```
+    **Note:** To ensure proper configuration for your monitoring setup, you'll also need to replace your `prometheus.yml` configuration file located in `/etc/prometheus/` with the one provided in this repository at `system-activity-monitor_v2/etc/prometheus/`.
+
 
 3. Install Grafana: [Grafana Installation Guide](https://grafana.com/grafana/download)
    - Start Grafana Server:
