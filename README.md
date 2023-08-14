@@ -33,6 +33,8 @@ Follow these steps to build and run SysMetrix Pulse Monitor on your system:
      sudo systemctl daemon-reload
      sudo systemctl start grafana-server
      ```
+    **Note:** You need to import the SYSMETRIX PULSE MONITOR dashboard to view graphs. Import the `SYSMETRIX-PULSE-MONITOR.json` file located in the `system-activity-monitor_v2/etc/grafana` folder to your Grafana server. For detailed guidance on importing dashboards in Grafana, refer to the [Grafana Dashboard Import Guide](https://grafana.com/docs/grafana/latest/dashboards/manage-dashboards/).
+
 
 4. Clone the repository:
     ```
@@ -52,6 +54,8 @@ Follow these steps to build and run SysMetrix Pulse Monitor on your system:
 
     - Access Prometheus metrics: [http://localhost:9091/metrics](http://localhost:9091/metrics)
     - Visualize metrics in Grafana: [http://localhost:3000](http://localhost:3000)
+    
+  
 
 ## Screenshots
 
