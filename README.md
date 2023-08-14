@@ -48,6 +48,8 @@ Follow these steps to build and run SysMetrix Pulse Monitor on your system:
     ```
     go run main.go
     ```
+    ![App running](screenshots/app_running.png)
+
     - Access Prometheus metrics: [http://localhost:9091/metrics](http://localhost:9091/metrics)
     - Visualize metrics in Grafana: [http://localhost:3000](http://localhost:3000)
 
@@ -55,24 +57,40 @@ Follow these steps to build and run SysMetrix Pulse Monitor on your system:
 
 ### CPU Metrics
 - Real-time CPU Usage Overview
-- CPU Usage Over Time
-- App & Process-specific CPU Utilization
+![Real-time CPU Usage Overview](screenshots/cpu_usage_overview.png)
+
+- CPU Usage Over Time, App & Process-specific CPU Utilization
+![CPU Usage Over Time](screenshots/cpu_usage_over_time.png)
+
 
 ### Memory Metrics
 - Memory Motion: Utilization and Availability Over Time
+![Memory Motion: Utilization and Availability Over Time](screenshots/memory_motion_over_time.png)
+
 - App & Process-specific Memory Utilization
+![App & Process-specific Memory Utilization](screenshots/memory_utilization_per_app.png)
 
 ### Disk Metrics
-- Disk Device Distribution
-- Partition Overview
+- Disk Device Distribution & Partition Overview
+![Disk Device Distribution](screenshots/disk_device_distribution.png)
+
 - Disk Read Rate per App
+![Disk Read Rate per App](screenshots/disk_read_rate_per_app.png)
+
 - Disk Write Rate per App
+![Disk Write Rate per App](screenshots/disk_write_rate_per_app.png)
+
+### Prometheus UI
+- Display of collected metrics in Prometheus web interface
+![Metrics exposed in prometheus](screenshots/prometheus_ui.png)
 
 ### Jenkins Pipeline
-- [Screenshot of Your Jenkins Pipeline]
+- Successful execution of the Jenkins pipeline
+![Screenshot of Your Jenkins Pipeline](screenshots/jenkins_pipeline.png)
 
 ### Demo GIF
-![Demo GIF](demo.gif)
+- A GIF showcasing the application in action
+![Project GIF](screenshots/project_gif.gif)
 
 ## Verification Checklist
 
