@@ -114,7 +114,7 @@ Follow these steps to build and run SysMetrix Pulse Monitor on your system:
   - [x] Prometheus + Grafana
 
 
-                            📊 Happy Monitoring! 🚀
+📊 Happy Monitoring! 🚀
 
 ---
 
