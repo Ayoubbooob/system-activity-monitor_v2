@@ -119,6 +119,13 @@ Follow these steps to build and run SysMetrix Pulse Monitor on your system:
   - [ ]  Terminal-based UI
   - [x] Prometheus + Grafana
 
+## Contribution
+
+Contributions to SysMetrix Pulse Monitor are welcome! Whether you're an experienced developer or just starting, your input can make a big difference. Feel free to fork the repository, make your changes, and submit a pull request. Let's collaborate and enhance this project together!
+
+## License
+
+SysMetrix Pulse Monitor is released under the [MIT License](LICENSE).
 
 📊 Happy Monitoring! 🚀
 
