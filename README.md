@@ -2,6 +2,8 @@
 
 SysMetrix Pulse Monitor is a system activity monitor that collects various statistics and displays them in real-time. This project focuses on monitoring CPU, memory, and disk usage, allowing users to gain insights into their system's performance. Whether you're a system administrator, developer, or curious user, SysMetrix Pulse Monitor provides a user-friendly interface to keep track of essential metrics.
 
+Video Preview: [Watch the Video](https://www.youtube.com/watch?v=7jQIYY9qpWs&t=140s)
+
 ## Features
 
 - **Real-time Monitoring**: SysMetrix Pulse Monitor collects and displays system metrics in real-time with a refresh rate of 1-5 seconds.
